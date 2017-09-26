@@ -9,12 +9,12 @@ hints:
   - class: DockerRequirement
     dockerPull: biocontainers/samtools
 inputs:
-  - id: bam
+  bam:
     type: File
     inputBinding:
       position: 1
 outputs:
-  - id: output
+  indexed_alignment:
     type: File
     outputBinding:
       glob: $(inputs.bam.basename)

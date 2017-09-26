@@ -1,4 +1,4 @@
-cwlVersion: cwl:draft-3
+cwlVersion: v1.0
 class: CommandLineTool
 baseCommand: [bwa, mem]
 requirements:
@@ -8,7 +8,7 @@ hints:
   - class: DockerRequirement
     dockerPull: biocontainers/bwa
 inputs:
-  - id: reference
+  reference:
     type: File
     inputBinding:
       position: 1
@@ -20,16 +20,16 @@ inputs:
       - .fai
       - .pac
       - .sa
-  - id: fastq_r1
+  fastq_r1:
     type: File
     inputBinding:
       position: 2
-  - id: fastq_r2
+  fastq_r2:
     type: File
     inputBinding:
       position: 3
 outputs:
-  - id: output
+  alignment:
     type: File
     outputBinding:
       glob: alignment.sam

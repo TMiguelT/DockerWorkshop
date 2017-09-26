@@ -1,63 +1,51 @@
-cwlVersion: cwl:draft-3
+cwlVersion: v1.0
 class: Workflow
+requirements:
+  - class: InlineJavascriptRequirement
 inputs:
-  - id: reference
+  read_1: File
+  read_2: File
+  reference:
     type: File
-  - id: read_1
-    type: File
-  - id: read_2
-    type: File
-  - id: reference_indices
-    type: 
-      type: array
-      items: File
     secondaryFiles:
+      - $(self.basename.replace(/.fasta$/, '.dict'))
       - .amb
       - .ann
       - .bwt
+      - .fai
       - .pac
-      - .sa 
+      - .sa
 
 outputs:
-  - id: variants
+  variants:
     type: File
-    source: "#call_variants/variants"
+    outputSource: call_variants/variants
 
 steps:
-  - id: align
+
+  align:
     run: bwa.cwl
-    inputs:
-      - id: reference
-        source: "#reference"
-      - id: fastq_r1
-        source: "#read_1"
-      - id: fastq_r2
-        source: "#read_2"
-    outputs:
-      - id: alignment
+    in:
+      reference: reference
+      fastq_r1: read_1
+      fastq_r2: read_2
+    out: [alignment]
 
-  - id: sort
+  sort:
     run: bam_sort.cwl
-    inputs:
-      - id: bam
-        source: "#align/alignment"
-    outputs:
-      - id: sorted_alignment
+    in:
+      alignment: align/alignment
+    out: [sorted_alignment]
 
-  - id: index
+  index:
     run: bam_index.cwl
-    inputs:
-      - id: bam
-        source: "#sort/sorted_alignment"
-    outputs:
-      - id: alignment_index
+    in:
+      bam: sort/sorted_alignment
+    out: [indexed_alignment]
 
-  - id: call_variants
+  call_variants:
     run: freebayes.cwl
-    inputs:
-      - id: alignment
-        source: "#sort/sorted_alignment"
-      - id: reference
-        source: "#reference"
-    outputs:
-      - id: variants
+    in:
+      alignment: index/indexed_alignment
+      reference: reference
+    out: [variants]
