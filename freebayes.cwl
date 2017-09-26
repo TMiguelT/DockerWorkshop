@@ -1,12 +1,12 @@
 cwlVersion: cwl:draft-3
 class: CommandLineTool
-baseCommand: [freebayes]
+baseCommand: []
 stdout: variants.vcf
 requirements:
   - class: InlineJavascriptRequirement
 hints:
   - class: DockerRequirement
-    dockerPull: heuermh/freebayes
+    dockerPull: my_freebayes
 inputs:
   - id: reference
     type: File

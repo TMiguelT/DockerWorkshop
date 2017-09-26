@@ -1,13 +1,13 @@
 ﻿cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: [samtools, index]
+baseCommand: [index]
 stdout: alignment.bam.bai
 requirements:
   - class: InitialWorkDirRequirement
     listing: [ $(inputs.bam) ]
 hints:
   - class: DockerRequirement
-    dockerPull: biocontainers/samtools
+    dockerPull: my_samtools
 inputs:
   bam:
     type: File

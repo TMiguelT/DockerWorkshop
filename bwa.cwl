@@ -1,12 +1,12 @@
 cwlVersion: v1.0
 class: CommandLineTool
-baseCommand: [bwa, mem]
+baseCommand: [mem]
 requirements:
   - class: InlineJavascriptRequirement
 stdout: alignment.sam
 hints:
   - class: DockerRequirement
-    dockerPull: biocontainers/bwa
+    dockerPull: my_bwa
 inputs:
   reference:
     type: File
