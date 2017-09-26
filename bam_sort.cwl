@@ -4,7 +4,7 @@ baseCommand: [samtools, sort]
 stdout: alignment.sorted.bam
 hints:
   - class: DockerRequirement
-    dockerPull: my_samtools
+    dockerPull: biocontainers/samtools
 inputs:
   - id: bam
     type: File
