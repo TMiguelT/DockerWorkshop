@@ -8,8 +8,15 @@ inputs:
   - id: read_2
     type: File
   - id: reference_indices
-    type: array
-    items: File
+    type: 
+      type: array
+      items: File
+    secondaryFiles:
+      - .amb
+      - .ann
+      - .bwt
+      - .pac
+      - .sa 
 
 outputs:
   - id: variants
@@ -26,8 +33,6 @@ steps:
         source: "#read_1"
       - id: fastq_r2
         source: "#read_2"
-      - id: reference_indices
-        source: #reference_indices
     outputs:
       - id: alignment
 
