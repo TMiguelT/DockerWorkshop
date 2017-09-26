@@ -3,7 +3,7 @@ class: CommandLineTool
 baseCommand: [bwa, mem]
 requirements:
   - class: InlineJavascriptRequirement
-stdout: alignment.bam
+stdout: alignment.sam
 hints:
   - class: DockerRequirement
     dockerPull: biocontainers/bwa
@@ -14,12 +14,12 @@ inputs:
       position: 1
     secondaryFiles:
       - $(self.basename.replace(/.fasta$/, '.dict'))
-      - $(self.basename + '.amb')
-      - $(self.basename + '.ann')
-      - $(self.basename + '.bwt')
-      - $(self.basename + '.fai')
-      - $(self.basename + '.pac')
-      - $(self.basename + '.sa')
+      - .amb
+      - .ann
+      - .bwt
+      - .fai
+      - .pac
+      - .sa
   - id: fastq_r1
     type: File
     inputBinding:
@@ -32,4 +32,4 @@ outputs:
   - id: output
     type: File
     outputBinding:
-      glob: alignment.bam
+      glob: alignment.sam

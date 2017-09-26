@@ -1,12 +1,12 @@
 cwlVersion: cwl:draft-3
 class: CommandLineTool
-baseCommand: [samtools, sort]
+baseCommand: [samtools, sort, -O, bam]
 stdout: alignment.sorted.bam
 hints:
   - class: DockerRequirement
     dockerPull: biocontainers/samtools
 inputs:
-  - id: bam
+  - id: alignment
     type: File
     inputBinding:
       position: 1
